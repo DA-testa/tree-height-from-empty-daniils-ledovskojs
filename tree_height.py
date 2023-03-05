@@ -37,8 +37,8 @@ def main():
         if not "a" in file_p:
             text = open(path)
             n = int(text.readline())
-            text.close()
             parents = list(map(int, text.readline().split()))
+            text.close()
             tree, root = build_tree(n, parents)
             height = compute_height(tree, root)
             print(height)
