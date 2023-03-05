@@ -41,13 +41,13 @@ def main():
             text.close()
             tree, root = build_tree(n, parents)
             height = compute_height(tree, root)
-            print(height)
+            print(height +1)
     elif "I" in text:
         n = int(input("Enter number of nodes: "))
         parents = list(map(int, input("Enter parents of nodes: ").split()))
         tree, root = build_tree(n, parents)
         height = compute_height(tree, root)
-        print(height)
+        print(height +1)
 sys.setrecursionlimit(10**7)  # max depth of recursion
 threading.stack_size(2**27)   # new thread will get stack of such size
 threading.Thread(target=main).start()
