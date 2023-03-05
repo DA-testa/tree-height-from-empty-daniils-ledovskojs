@@ -5,17 +5,29 @@ import threading
 import numpy
 
 
-def compute_height(n, parents):
-    # Write this function
-    max_height = 0
-    for v in range(n):
-        h = 0
-        c = v
-        while c != -1:
-            h += 1
-            c = parents[c]
-        max_height = max(max_height, h)    
-    return max_height
+def build_tree(n, parents):
+    tree = {}
+    for i in range(n):
+        parent = parents[i]
+        if parent == -1:
+            root = i
+        else:
+            if parent not in tree:
+                tree[parent] = []
+            tree[parent].append(i)
+    return tree, root
+
+
+def compute_height(tree, root):
+    if root not in tree:
+        return 0
+    height = 0
+    for child in tree[root]:
+        height = max(height, compute_height(tree, child))
+    return height + 1
+
+
+
 
 def main():
     text = input()
@@ -26,15 +38,15 @@ def main():
             text = open(path)
             text2 = text.read()
             text.close()
-            sep = text2.partition("\n")
-            n = int(sep[0])
-            parents_1 = sep[2].split(" ")
-            parents = ([int(x) for x in parents_1])
-            print(compute_height(n, parents))
+            n, parents = read_input()
+            tree, root = build_tree(n, parents)
+            height = compute_height(tree, root)
+            print(height)
     elif "I" in text:
-        n = int(input())
-        parents = list(map(int, input().split()))
-        print(compute_height(n, parents))
+       n, parents = read_input()
+tree, root = build_tree(n, parents)
+height = compute_height(tree, root)
+print(height)
 sys.setrecursionlimit(10**7)  # max depth of recursion
 threading.stack_size(2**27)   # new thread will get stack of such size
 threading.Thread(target=main).start()
