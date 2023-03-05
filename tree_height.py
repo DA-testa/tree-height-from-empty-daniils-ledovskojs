@@ -1,4 +1,4 @@
-# python3
+# 221RDB300 Daniils Ledovskojs 2. prupa
 
 import sys
 import threading
@@ -8,19 +8,35 @@ import numpy
 def compute_height(n, parents):
     # Write this function
     max_height = 0
-    # Your code here
+    for v in range(n):
+        h = 0
+        c = v
+        while c != -1:
+            h += 1
+            c = parents[c]
+        max_height = max(max_height, h)    
     return max_height
 
 
 def main():
     # implement input form keyboard and from files
-    
-    # let user input file name to use, don't allow file names with letter a
-    # account for github input inprecision
-    
-    # input number of elements
-    # input values in one variable, separate with space, split these values in an array
-    # call the function and output it's result
+    text = input()
+    if "F" in text:
+        file_p = input()
+        path = "test/" + file_p
+        if not "a" in file_p:
+            text = open(path)
+            text2 = text.read()
+            text.close()
+            sep = text2.partition("\n")
+            n = int(sep[0])
+            parents_1 = sep[2].split(" ")
+            parents = ([int(x) for x in parents_1])
+            print(compute_height(n, parents))
+    elif "I" in text:
+        n = int(input())
+        parents = list(map(int, input().split()))
+        print(compute_height(n, parents))
     pass
 
 # In Python, the default limit on recursion depth is rather low,
