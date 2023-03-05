@@ -36,17 +36,18 @@ def main():
         path = "test/" + file_p
         if not "a" in file_p:
             text = open(path)
-            text2 = text.read()
+            n = int(text.readline())
             text.close()
-            n, parents = input()
+            parents = list(map(int, text.readline().split()))
             tree, root = build_tree(n, parents)
             height = compute_height(tree, root)
             print(height)
     elif "I" in text:
-       n, parents = input()
-tree, root = build_tree(n, parents)
-height = compute_height(tree, root)
-print(height)
+        n = int(input("Enter number of nodes: "))
+        parents = list(map(int, input("Enter parents of nodes: ").split()))
+        tree, root = build_tree(n, parents)
+        height = compute_height(tree, root)
+        print(height)
 sys.setrecursionlimit(10**7)  # max depth of recursion
 threading.stack_size(2**27)   # new thread will get stack of such size
 threading.Thread(target=main).start()
